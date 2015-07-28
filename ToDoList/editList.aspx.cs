@@ -88,8 +88,6 @@ namespace ToDoList
 
                 db.SaveChanges();
                 
-
-                
             }
 
             using (ToDoDBase db = new ToDoDBase())
@@ -97,9 +95,12 @@ namespace ToDoList
                 pointTracker s = new pointTracker();
 
                 s.username = user;
-                s.points = 0;
+                s.points += 0;
 
+                if(s.username != user)
                 db.pointTrackers.Add(s);
+
+
                 db.SaveChanges();
             }
 
