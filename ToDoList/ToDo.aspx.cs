@@ -86,6 +86,8 @@ namespace ToDoList
 
         protected void grdTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int points = 0;
+
             if(e.CommandName == "Complete")
             {
                 //store which row was clicked
@@ -102,6 +104,16 @@ namespace ToDoList
                     ToDoTable s = (from objS in db.ToDoTables
                                    where objS.taskID == taskID
                                    select objS).FirstOrDefault();
+
+                    if (s.priority == 0)
+                        points = 5;
+
+                    if (s.priority == 1)
+                        points = 10;
+
+                    if (s.priority == 2)
+                        points = 15;
+
                     //do the delete
                     db.ToDoTables.Remove(s);
                     db.SaveChanges();
@@ -112,8 +124,11 @@ namespace ToDoList
                     pointTracker s = (from objS in db.pointTrackers
                                       where objS.username == user
                                       select objS).FirstOrDefault();
-                    if(s != null)
-                    s.points += 5;
+                    if (s != null)
+                    {
+                        
+                        s.points += points;
+                    }
 
                     db.SaveChanges();
                 }

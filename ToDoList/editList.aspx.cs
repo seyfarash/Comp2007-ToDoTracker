@@ -94,11 +94,16 @@ namespace ToDoList
             {
                 pointTracker s = new pointTracker();
 
-                s.username = user;
-                s.points += 0;
+                s = (from objS in db.pointTrackers
+                     where objS.username == user
+                     select objS).FirstOrDefault();
 
-                if(s.username != user)
+                
+
+                if(s.username == null)
                 db.pointTrackers.Add(s);
+                else
+                    s.username = user;
 
 
                 db.SaveChanges();
