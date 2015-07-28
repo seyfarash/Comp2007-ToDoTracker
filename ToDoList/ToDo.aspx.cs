@@ -25,7 +25,7 @@ namespace ToDoList
 
         protected void GetTasks()
         {
-            using (ToDoDB db = new ToDoDB())
+            using (ToDoDBase db = new ToDoDBase())
             {
 
                 String user = User.Identity.Name;
@@ -57,7 +57,7 @@ namespace ToDoList
             int taskID = Convert.ToInt32(grdTasks.DataKeys[selectedRow].Values["taskID"]);
 
             //use EF to remove the selected student from the db
-            using (ToDoDB db = new ToDoDB())
+            using (ToDoDBase db = new ToDoDBase())
             {
 
                 ToDoTable s = (from objS in db.ToDoTables
@@ -96,7 +96,7 @@ namespace ToDoList
                 int taskID = Convert.ToInt32(grdTasks.DataKeys[selectedRow].Values["taskID"]);
 
                 //use EF to remove the selected student from the db
-                using (ToDoDB db = new ToDoDB())
+                using (ToDoDBase db = new ToDoDBase())
                 {
 
                     ToDoTable s = (from objS in db.ToDoTables
@@ -107,12 +107,12 @@ namespace ToDoList
                     db.SaveChanges();
                 }
 
-                using (ToDoDB db = new ToDoDB())
+                using (ToDoDBase db = new ToDoDBase())
                 {
                     pointTracker s = (from objS in db.pointTrackers
                                       where objS.username == user
                                       select objS).FirstOrDefault();
-
+                    if(s != null)
                     s.points += 5;
 
                     db.SaveChanges();

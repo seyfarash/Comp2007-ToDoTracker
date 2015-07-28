@@ -14,6 +14,7 @@ namespace ToDoList.Models
     
     public partial class pointTracker
     {
+        public int userID { get; set; }
         public string username { get; set; }
         public int points { get; set; }
     }

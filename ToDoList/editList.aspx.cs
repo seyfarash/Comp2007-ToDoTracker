@@ -30,7 +30,7 @@ namespace ToDoList
             Int32 taskID = Convert.ToInt32(Request.QueryString["taskID"]);
 
             //connect to db via EF
-            using (ToDoDB db = new ToDoDB())
+            using (ToDoDBase db = new ToDoDBase())
             {
                 //populate a student instance with the StudentID from the URL parameter
                 ToDoTable s = (from objS in db.ToDoTables
@@ -53,7 +53,7 @@ namespace ToDoList
         {
             String user = User.Identity.Name;
 
-            using (ToDoDB db = new ToDoDB())
+            using (ToDoDBase db = new ToDoDBase())
             {
 
                 
@@ -89,21 +89,21 @@ namespace ToDoList
                 db.SaveChanges();
                 
 
-                Response.Redirect("ToDo.aspx");
+                
             }
 
-            using (ToDoDB db = new ToDoDB())
+            using (ToDoDBase db = new ToDoDBase())
             {
-                pointTracker s = (from objS in db.pointTrackers
-                                  where objS.username == user
-                                  select objS).FirstOrDefault();
+                pointTracker s = new pointTracker();
 
                 s.username = user;
-                s.points += 0;
+                s.points = 0;
 
                 db.pointTrackers.Add(s);
                 db.SaveChanges();
             }
+
+            Response.Redirect("ToDo.aspx");
         }
 
     

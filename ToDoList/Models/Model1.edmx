@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ToDoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ToDoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -66,13 +66,11 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="pointTracker">
           <Key>
-            <PropertyRef Name="username" />
-            <PropertyRef Name="points" />
+            <PropertyRef Name="userID" />
           </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="varchar(max)" Nullable="false" />
           <Property Name="points" Type="int" Nullable="false" />
         </EntityType>
@@ -150,13 +148,8 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pointTracker" EntityType="Self.pointTracker" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoTable" EntityType="Self.ToDoTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="pointTracker" EntityType="Self.pointTracker" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [pointTracker].[username] AS [username], 
-    [pointTracker].[points] AS [points]
-    FROM [dbo].[pointTracker] AS [pointTracker]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -174,7 +167,8 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ToDoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -237,6 +231,14 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
+        <EntityType Name="pointTracker">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="points" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="ToDoTable">
           <Key>
             <PropertyRef Name="taskID" />
@@ -280,12 +282,13 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="ToDoDB" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ToDoDBase" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="pointTrackers" EntityType="Self.pointTracker" />
           <EntitySet Name="ToDoTables" EntityType="Self.ToDoTable" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -299,22 +302,13 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="pointTrackers" EntityType="ToDoDBModel.pointTracker" />
         </EntityContainer>
-        <EntityType Name="pointTracker">
-          <Key>
-            <PropertyRef Name="username" />
-            <PropertyRef Name="points" />
-          </Key>
-          <Property Name="username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="points" Type="Int32" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ToDoDBModelStoreContainer" CdmEntityContainer="ToDoDB">
+        <EntityContainerMapping StorageEntityContainer="ToDoDBModelStoreContainer" CdmEntityContainer="ToDoDBase">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="ToDoDBModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -370,6 +364,15 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="pointTrackers">
+            <EntityTypeMapping TypeName="ToDoDBModel.pointTracker">
+              <MappingFragment StoreEntitySet="pointTracker">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="points" ColumnName="points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ToDoTables">
             <EntityTypeMapping TypeName="ToDoDBModel.ToDoTable">
               <MappingFragment StoreEntitySet="ToDoTable">
@@ -390,14 +393,6 @@ warning 6002: The table/view 'ToDoDB.dbo.pointTracker' does not have a primary k
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="pointTrackers">
-            <EntityTypeMapping TypeName="ToDoDBModel.pointTracker">
-              <MappingFragment StoreEntitySet="pointTracker">
-                <ScalarProperty Name="points" ColumnName="points" />
-                <ScalarProperty Name="username" ColumnName="username" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

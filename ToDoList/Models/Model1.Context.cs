@@ -13,10 +13,10 @@ namespace ToDoList.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ToDoDB : DbContext
+    public partial class ToDoDBase : DbContext
     {
-        public ToDoDB()
-            : base("name=ToDoDB")
+        public ToDoDBase()
+            : base("name=ToDoDBase")
         {
         }
     
@@ -30,7 +30,7 @@ namespace ToDoList.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<ToDoTable> ToDoTables { get; set; }
         public virtual DbSet<pointTracker> pointTrackers { get; set; }
+        public virtual DbSet<ToDoTable> ToDoTables { get; set; }
     }
 }
