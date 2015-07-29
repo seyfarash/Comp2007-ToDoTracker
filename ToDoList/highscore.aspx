@@ -3,7 +3,7 @@
 
     <asp:GridView ID="grdScores" runat="server" AutoGenerateColumns="false" DataKeyNames="username"
          CssClass="table table-striped table-hover"
-         AllowPaging="true" PageSize="3" OnPageIndexChanging="grdScores_PageIndexChanging"
+         AllowPaging="true" PageSize="3"
          AllowSorting="true" OnSorting="grdScores_Sorting" OnRowDataBound="grdScores_RowDataBound">
 
         <Columns>
