@@ -4,11 +4,15 @@
 
     <a href="editList.aspx">Add Task</a>
 
+    <br />
+    <br />
+    <asp:Label ID="expireTime" runat="server" Text="If the row is red, your task is about to expire!"></asp:Label>
+
     
 
     <asp:GridView ID="grdTasks" runat="server" AutoGenerateColumns="false" DataKeyNames="taskID"
          CssClass="table table-striped table-hover" OnRowDeleting="grdTasks_RowDeleting"
-         AllowPaging="true" PageSize="5" OnPageIndexChanging="grdTasks_PageIndexChanging" OnRowCommand="grdTasks_RowCommand"
+         AllowPaging="true" PageSize="10" OnPageIndexChanging="grdTasks_PageIndexChanging" OnRowCommand="grdTasks_RowCommand"
          AllowSorting="true" OnSorting="grdTasks_Sorting" OnRowDataBound="grdTasks_RowDataBound">
 
         <Columns>

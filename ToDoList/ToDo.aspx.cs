@@ -85,8 +85,17 @@ namespace ToDoList
 
         protected void grdTasks_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            string v = DateTime.Now.ToLongDateString();
+            string v = DateTime.Now.ToShortDateString();
             v = v.Replace("/", "-" );
+
+            if(v.StartsWith("0"))
+            {
+                
+            }
+            else
+            {
+                v = "0" + v;
+            }
 
             if(e.Row.RowType == DataControlRowType.DataRow)
             {
