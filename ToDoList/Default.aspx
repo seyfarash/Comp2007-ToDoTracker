@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <h1>Welcome to your personal To Do List, with a twist!</h1>
         <p class="lead">Check out how other people are doing! .</p>
-        <p><a href="/HighScores" class="btn btn-primary btn-lg">High Scores &raquo;</a></p>
+        <p><a href="/Highscores" class="btn btn-primary btn-lg">High Scores &raquo;</a></p>
     </div>
 
     <div class="row">
