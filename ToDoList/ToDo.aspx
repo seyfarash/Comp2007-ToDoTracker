@@ -8,12 +8,12 @@
 
     <asp:GridView ID="grdTasks" runat="server" AutoGenerateColumns="false" DataKeyNames="taskID"
          CssClass="table table-striped table-hover" OnRowDeleting="grdTasks_RowDeleting"
-         AllowPaging="true" PageSize="3" OnPageIndexChanging="grdTasks_PageIndexChanging" OnRowCommand="grdTasks_RowCommand"
+         AllowPaging="true" PageSize="5" OnPageIndexChanging="grdTasks_PageIndexChanging" OnRowCommand="grdTasks_RowCommand"
          AllowSorting="true" OnSorting="grdTasks_Sorting" OnRowDataBound="grdTasks_RowDataBound">
 
         <Columns>
             <asp:BoundField DataField="Task" HeaderText="Task" SortExpression="Task" />
-            <asp:BoundField DataField="dueDate" HeaderText="Due" SortExpression="Due"/>
+            <asp:BoundField DataField="dueDate" HeaderText="Due" SortExpression="Due" DataFormatString="{0:MM-dd-yyyy}"/>
             <asp:BoundField DataField="Priority" HeaderText="Priority" SortExpression="Priority" />
             <asp:HyperLinkField Text="Edit" NavigateUrl="editList.aspx" DataNavigateUrlFields="taskID"
                  DataNavigateUrlFormatString="editList.aspx?taskID={0}" HeaderText="Edit" />

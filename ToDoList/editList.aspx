@@ -17,8 +17,8 @@
     </fieldset>
     <fieldset>
         <label for="txtDueDate" class="col-sm-2">Due Date:</label>
-        <asp:TextBox ID="txtDueDate" runat="server" required TextMode="DateTimeLocal" />
-        <asp:CustomValidator ID="dueDateValidate" runat="server" ErrorMessage="Date Must Be later than today" ControlToValidate="txtDueDate" CssClass="aler aler-danger" OnServerValidate="dueDateValidate_ServerValidate" Display="Dynamic" EnableClientScript="true"></asp:CustomValidator>
+        <asp:TextBox ID="txtDueDate" runat="server" required TextMode="Date" />
+        <asp:RangeValidator ID="dateValidate" runat="server" ControlToValidate="txtDueDate" ErrorMessage="Enter a correct date" MaximumValue="12/31/2099" MinimumValue="07/28/2015" Type="Date"></asp:RangeValidator>
     </fieldset>
 
     <div class="col-sm-offset-2">

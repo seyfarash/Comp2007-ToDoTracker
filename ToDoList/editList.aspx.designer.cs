@@ -40,13 +40,13 @@ namespace ToDoList {
         protected global::System.Web.UI.WebControls.TextBox txtDueDate;
         
         /// <summary>
-        /// dueDateValidate control.
+        /// dateValidate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator dueDateValidate;
+        protected global::System.Web.UI.WebControls.RangeValidator dateValidate;
         
         /// <summary>
         /// btnSave control.

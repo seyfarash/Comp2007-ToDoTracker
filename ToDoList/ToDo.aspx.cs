@@ -85,6 +85,20 @@ namespace ToDoList
 
         protected void grdTasks_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            string v = DateTime.Now.ToLongDateString();
+            v = v.Replace("/", "-" );
+
+            if(e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (e.Row.Cells[1].Text == v)
+                {
+                    e.Row.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+
+                }
+            }
 
         }
 
@@ -98,10 +112,10 @@ namespace ToDoList
                 Int32 selectedRow = Convert.ToInt32(e.CommandArgument);
                 String user = User.Identity.Name;
 
-                //get the selected StudentID using the grid's Data Key collection
+                //get the selected task using the grid's Data Key collection
                 int taskID = Convert.ToInt32(grdTasks.DataKeys[selectedRow].Values["taskID"]);
 
-                //use EF to remove the selected student from the db
+                //use EF to remove the selected task from the db
                 using (ToDoDBase db = new ToDoDBase())
                 {
 

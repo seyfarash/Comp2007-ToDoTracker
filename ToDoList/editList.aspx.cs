@@ -15,6 +15,7 @@ namespace ToDoList
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
         if ((!IsPostBack))
             {
                 GetTask();
@@ -109,22 +110,6 @@ namespace ToDoList
             }
 
             Response.Redirect("ToDo.aspx");
-        }
-
-        protected void dueDateValidate_ServerValidate(object source, ServerValidateEventArgs args)
-        {
-            var v = txtDueDate.Text;
-            DateTime d = Convert.ToDateTime(v);
-
-            if(d <= DateTime.Now || d >= DateTime.MaxValue)
-            {
-                dueDateValidate.IsValid = false;
-            }
-            else
-            {
-                dueDateValidate.IsValid = true;
-            }
-            
         }
 
     
