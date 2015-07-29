@@ -98,13 +98,18 @@ namespace ToDoList
                      where objS.username == user
                      select objS).FirstOrDefault();
 
-                
 
-                if(s.username == null)
-                db.pointTrackers.Add(s);
+                if (s != null)
+                {
+                    if (s.username == null)
+                        db.pointTrackers.Add(s);
+                    else
+                        s.username = user;
+                }
                 else
-                    s.username = user;
-
+                {
+                    db.pointTrackers.Add(s);
+                }
 
                 db.SaveChanges();
             }
