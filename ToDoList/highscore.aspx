@@ -4,7 +4,7 @@
     <asp:GridView ID="grdScores" runat="server" AutoGenerateColumns="false" DataKeyNames="username"
          CssClass="table table-striped table-hover"
          AllowPaging="true" PageSize="3"
-         AllowSorting="true" OnRowDataBound="grdScores_RowDataBound">
+         AllowSorting="true">
 
         <Columns>
             <asp:BoundField DataField="username" HeaderText="User" SortExpression="User" />
